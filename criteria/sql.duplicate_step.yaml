@@ -1,0 +1,8 @@
+id: sql.duplicate_step
+title: No repeated queries
+version: 1
+family: programmatic
+layer: process
+gate: soft
+applies_to: {level: step, tool: execute_sql}
+description: The same SQL (after normalization) already ran in an earlier step of this trace.

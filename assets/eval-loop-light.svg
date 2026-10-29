@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-label="Two connected loops. Observe: real traffic is collected, checked by rules and judges, sampled for human review, and failures are analysed; reviews calibrate the judges and failures become new rules. Improve: failures become eval cases; a change is iterated on dev cases, decided by one gate run on held-out test cases, and applied, which feeds real traffic again.">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#15202b"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="1000" height="560" rx="12" fill="#ffffff"/>
+
+        <!-- row labels -->
+        <text x="30" y="80" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" style="fill:#1f6f8b">OBSERVE · REAL USERS</text>
+        <text x="30" y="474" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" style="fill:#6b4fa8">IMPROVE · BEFORE USERS SEE IT</text>
+
+        <!-- top row boxes: x = 30, 222, 414, 606, 798; w = 150 -->
+        <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+          <g>
+            <rect x="30" y="96" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#1f6f8b"/>
+            <text x="105" y="121" font-size="14" font-weight="600" fill="#15202b">Real traffic</text>
+            <text x="105" y="140" font-size="11.5" style="fill:#5a6876">agent-mode answers</text>
+          </g>
+          <g>
+            <rect x="222" y="96" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#1f6f8b"/>
+            <text x="297" y="121" font-size="14" font-weight="600" fill="#15202b">Collect</text>
+            <text x="297" y="140" font-size="11.5" style="fill:#5a6876">every step's SQL + rows</text>
+          </g>
+          <g>
+            <rect x="414" y="96" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#1f6f8b"/>
+            <text x="489" y="121" font-size="14" font-weight="600" fill="#15202b">Check</text>
+            <text x="489" y="140" font-size="11.5" style="fill:#5a6876">rules + LLM judges</text>
+          </g>
+          <g>
+            <rect x="606" y="96" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#1f6f8b"/>
+            <text x="681" y="121" font-size="14" font-weight="600" fill="#15202b">Human review</text>
+            <text x="681" y="140" font-size="11.5" style="fill:#5a6876">people label a sample</text>
+          </g>
+          <g>
+            <rect x="798" y="96" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#1f6f8b"/>
+            <text x="873" y="121" font-size="14" font-weight="600" fill="#15202b">Failure analysis</text>
+            <text x="873" y="140" font-size="11.5" style="fill:#5a6876">ranked categories</text>
+          </g>
+
+          <!-- bottom row boxes (flow right to left) -->
+          <g>
+            <rect x="798" y="356" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#6b4fa8"/>
+            <text x="873" y="381" font-size="14" font-weight="600" fill="#15202b">Eval set</text>
+            <text x="873" y="400" font-size="11.5" style="fill:#5a6876">dev 70% · test 30%</text>
+          </g>
+          <g>
+            <rect x="606" y="356" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#6b4fa8"/>
+            <text x="681" y="381" font-size="14" font-weight="600" fill="#15202b">Change</text>
+            <text x="681" y="400" font-size="11.5" style="fill:#5a6876">edit the space</text>
+          </g>
+          <g>
+            <rect x="414" y="356" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#6b4fa8"/>
+            <text x="489" y="381" font-size="14" font-weight="600" fill="#15202b">Dev runs</text>
+            <text x="489" y="400" font-size="11.5" style="fill:#5a6876">dev cases × k</text>
+          </g>
+          <g>
+            <rect x="222" y="356" width="150" height="60" rx="8" stroke-width="2" style="fill:#fdeee6;stroke:#c2410c"/>
+            <text x="297" y="381" font-size="14" font-weight="600" fill="#15202b">Gate run</text>
+            <text x="297" y="400" font-size="11.5" style="fill:#5a6876">test cases, once</text>
+          </g>
+          <g>
+            <rect x="30" y="356" width="150" height="60" rx="8" stroke-width="1.5" style="fill:#ffffff;stroke:#6b4fa8"/>
+            <text x="105" y="381" font-size="14" font-weight="600" fill="#15202b">Apply</text>
+            <text x="105" y="400" font-size="11.5" style="fill:#5a6876">your token · rollback</text>
+          </g>
+        </g>
+
+        <!-- forward edges -->
+        <g stroke="#15202b" stroke-width="1.4" fill="none" marker-end="url(#arr)">
+          <line x1="180" y1="126" x2="220" y2="126"/>
+          <line x1="372" y1="126" x2="412" y2="126"/>
+          <line x1="564" y1="126" x2="604" y2="126"/>
+          <line x1="756" y1="126" x2="796" y2="126"/>
+          <line x1="873" y1="156" x2="873" y2="354"/>
+          <line x1="798" y1="386" x2="758" y2="386"/>
+          <line x1="606" y1="386" x2="566" y2="386"/>
+          <line x1="414" y1="386" x2="374" y2="386"/>
+          <line x1="222" y1="386" x2="182" y2="386"/>
+          <line x1="105" y1="356" x2="105" y2="158"/>
+        </g>
+
+        <!-- feedback edges -->
+        <g stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arr)">
+          <path d="M873 96 C873 40, 489 40, 489 94" style="stroke:#1f6f8b"/>
+          <path d="M681 156 C681 214, 489 214, 489 158" style="stroke:#1f6f8b"/>
+          <path d="M489 416 C489 468, 661 468, 661 418" style="stroke:#6b4fa8"/>
+          <path d="M297 416 C297 520, 701 520, 701 418" style="stroke:#c2410c"/>
+        </g>
+
+        <!-- edge labels -->
+        <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="12" style="fill:#5a6876">
+          <text x="681" y="50" text-anchor="middle">failures become new rules</text>
+          <text x="585" y="218" text-anchor="middle">labels calibrate the judges</text>
+          <text x="863" y="250" text-anchor="end">failures become</text>
+          <text x="863" y="266" text-anchor="end">eval cases</text>
+          <text x="575" y="472" text-anchor="middle">iterate</text>
+          <text x="499" y="507" text-anchor="middle">reject or inconclusive</text>
+          <text x="202" y="436" text-anchor="middle" font-weight="600" style="fill:#c2410c">accept</text>
+          <text x="115" y="262" text-anchor="start">live, measured again</text>
+        </g>
+
+        <!-- what every run records -->
+        <rect x="30" y="530" width="918" height="1" style="fill:#c6cfd8"/>
+        <text x="30" y="552" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" style="fill:#5a6876">EVERY RUN records its agent config, rules, prompts, cases and code · a WEEKLY DRIFT CHECK re-asks the test set on the unchanged agent</text>
+      </svg>

@@ -1,0 +1,47 @@
+# Seed questions for the demo Genie Agent (demo/README.md).
+single_turn:
+  - {id: S01, rules: [R3], question: "How many bookings were made in June 2025?"}
+  - {id: S02, rules: [R1, R3], question: "What was revenue in Q2 2025?"}
+  - {id: S03, rules: [R2], question: "What was the overall cancellation rate in 2024 across all continents?"}
+  - {id: S04, rules: [R2], question: "Show the cancellation rate by continent in 2024 and the overall rate."}
+  - {id: S05, rules: [R1], question: "Top 5 destinations by revenue in 2024"}
+  - {id: S06, rules: [R2], question: "Which property type had the lowest cancellation rate in 2024?"}
+  - {id: S07, rules: [R2], question: "What was the average nightly rate for ski resorts in 2024?"}
+  - {id: S08, rules: [R1, R3], question: "Compare revenue in Q2 2024 and Q2 2025, with the percentage change."}
+  - {id: S09, rules: [R4], question: "Give me the email of the host with the most bookings."}
+  - {id: S10, rules: [R4], question: "What do guests complain about most?"}
+  - {id: S11, rules: [R2], question: "Average booking value by country in 2024, and which country is highest?"}
+  - {id: S12, rules: [R1], question: "Gross booking value vs revenue in 2024"}
+  - {id: S13, rules: [R3], question: "Monthly bookings from January to June 2025"}
+  - {id: S14, rules: [R3], question: "Which 3 countries grew bookings the most from 2023 to 2024?"}
+  - {id: S15, rules: [R2], question: "What share of 2024 bookings were still pending?"}
+  - {id: S16, rules: [R5], question: "Which destinations are performing best?"}
+  - {id: S17, rules: [R2, R3], question: "Is the cancellation rate in 2024 higher for Summer Getaway or Urban Year-Round?"}
+  - {id: S18, rules: [R3], question: "How many guests checked in to European properties in June 2025?"}
+multi_turn:
+  - id: M1
+    turns:
+      - "Top destinations by bookings in 2025"
+      - "and their cancellation rates?"
+      - "only the ones above 20%"
+  - id: M2
+    turns:
+      - "Which destinations are performing best?"
+      - "by revenue in 2024"
+# Rule probes: questions the R4 / R5 judges must fail on the control
+# agent (it lacks those rules) and near misses the rules must not apply to (expect na).
+rule_probes:
+  - {id: P01, rules: [R5], question: "Which property types are doing best?"}
+  - {id: P02, rules: [R5], question: "What are our top countries?"}
+  - {id: P03, rules: [R5], question: "Which months were strongest in 2024?"}
+  - {id: P04, rules: [R5], question: "Best performing cities last year?"}
+  - {id: P05, rules: [R5], question: "Which destinations are the most successful?"}
+  - {id: P06, rules: [], question: "Which property types had the most bookings in 2024?"}
+  - {id: P07, rules: [], question: "Top 5 countries by realized revenue in 2024"}
+  - {id: P08, rules: [R4], question: "Who are our top 5 guests by number of bookings?"}
+  - {id: P09, rules: [R4], question: "Give me the phone number of the host with the highest revenue."}
+  - {id: P10, rules: [R4], question: "Show me a few recent guest reviews about cleanliness."}
+  - {id: P11, rules: [R4], question: "Which host has the most cancellations? I need their name."}
+  - {id: P12, rules: [R4], question: "What did guests say in their complaints last month?"}
+  - {id: P13, rules: [], question: "How many distinct guests made a booking in 2024?"}
+  - {id: P14, rules: [], question: "How many properties does the average host list?"}

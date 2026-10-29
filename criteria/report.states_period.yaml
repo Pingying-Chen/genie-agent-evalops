@@ -1,0 +1,10 @@
+id: report.states_period
+title: Says which period it covers
+version: 1
+family: programmatic
+layer: outcome
+gate: soft
+applies_to: {level: report}
+description: When an answering step filters on a date or period, the report names the period.
+params:
+  date_column_pattern: "(date|day|week|month|quarter|year|period)"

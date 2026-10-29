@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="372" viewBox="0 0 960 372" role="img" aria-label="The app page by page. Watch: Overview, Space, Answer. Calibrate: reviewers label in the Review App, then Evaluators and Disagreements. Improve: What reviewers found, Eval set, Changes. Any time: Performance, Versions, Settings.">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9aa7b4"/></marker></defs>
+<rect width="960" height="372" rx="12" fill="#0d1117"/>
+<text x="24" y="67.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#5bb8d6">1 · WATCH</text>
+<rect x="180" y="34" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5"/>
+<text x="285.0" y="59" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Overview</text>
+<text x="285.0" y="78" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">your spaces</text>
+<line x1="394" y1="63.0" x2="444" y2="63.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="450" y="34" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5"/>
+<text x="555.0" y="59" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Space</text>
+<text x="555.0" y="78" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">pass rate per rule</text>
+<line x1="664" y1="63.0" x2="714" y2="63.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="720" y="34" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5"/>
+<text x="825.0" y="59" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Answer</text>
+<text x="825.0" y="78" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">steps, SQL, verdicts</text>
+<text x="24" y="151.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#5bb8d6">2 · CALIBRATE</text>
+<rect x="180" y="118" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="285.0" y="143" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Review App</text>
+<text x="285.0" y="162" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">people label a sample</text>
+<line x1="394" y1="147.0" x2="444" y2="147.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="450" y="118" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5"/>
+<text x="555.0" y="143" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Evaluators</text>
+<text x="555.0" y="162" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">judges vs. people</text>
+<line x1="664" y1="147.0" x2="714" y2="147.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="720" y="118" width="210" height="58" rx="8" fill="#161b22" stroke="#5bb8d6" stroke-width="1.5"/>
+<text x="825.0" y="143" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Disagreements</text>
+<text x="825.0" y="162" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">where they differ</text>
+<text x="24" y="235.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#a990e0">3 · IMPROVE</text>
+<rect x="180" y="202" width="210" height="58" rx="8" fill="#161b22" stroke="#a990e0" stroke-width="1.5"/>
+<text x="285.0" y="227" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">What reviewers found</text>
+<text x="285.0" y="246" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">ranked failures</text>
+<line x1="394" y1="231.0" x2="444" y2="231.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="450" y="202" width="210" height="58" rx="8" fill="#161b22" stroke="#a990e0" stroke-width="1.5"/>
+<text x="555.0" y="227" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Eval set</text>
+<text x="555.0" y="246" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">dev and test cases</text>
+<line x1="664" y1="231.0" x2="714" y2="231.0" stroke="#9aa7b4" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="720" y="202" width="210" height="58" rx="8" fill="#161b22" stroke="#a990e0" stroke-width="1.5"/>
+<text x="825.0" y="227" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Changes</text>
+<text x="825.0" y="246" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">test · apply · roll back</text>
+<line x1="24" y1="278" x2="936" y2="278" stroke="#30363d" stroke-width="1"/>
+<text x="24" y="323.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#9aa7b4">ANY TIME</text>
+<rect x="180" y="288" width="210" height="54" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="285.0" y="311" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Performance</text>
+<text x="285.0" y="329" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">weekly trends</text>
+<rect x="450" y="288" width="210" height="54" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="555.0" y="311" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Versions</text>
+<text x="555.0" y="329" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">what changed</text>
+<rect x="720" y="288" width="210" height="54" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text x="825.0" y="311" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Settings</text>
+<text x="825.0" y="329" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11.5" fill="#9aa7b4">rules, models, gate</text>
+</svg>

@@ -1,0 +1,24 @@
+id: report.figure_sourced
+title: Every number comes from a query
+version: 1
+family: faithfulness
+layer: outcome
+gate: hard
+applies_to: {level: report}
+description: >
+  Every figure in the report is sourced (matches a step result value at its displayed
+  precision) or derived (difference, ratio or percent change of two step values, or a column
+  total). Otherwise it is unsourced and the report fails. Figures echoed from the question
+  ("above 20%", "Top 5", "Q2 2024") and years, dates and small list counts are skipped.
+params:
+  max_candidate_values: 400
+measured:
+  false_alarms: 0
+  negatives: 218
+  caught: 94
+  positives: 104
+  method: >
+    The 23 demo traces: all 218 real figures checked by hand (false alarms); then one figure per
+    report scaled by 0.63, 0.9, 1.12, 1.37 or 2.0, 104 injected errors in all (recall). Swapped
+    values (a real figure attached to the wrong thing) are not covered.
+  measured_on: "2026-10-19"

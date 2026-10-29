@@ -1,0 +1,44 @@
+{
+ "statement_response": {
+  "manifest": {
+   "chunks": [
+    {
+     "byte_count": 648,
+     "chunk_index": 0,
+     "row_count": 1,
+     "row_offset": 0
+    }
+   ],
+   "format": "JSON_ARRAY",
+   "schema": {
+    "column_count": 1,
+    "columns": [
+     {
+      "name": "total_bookings",
+      "position": 0,
+      "type_name": "LONG",
+      "type_text": "BIGINT"
+     }
+    ]
+   },
+   "total_byte_count": 648,
+   "total_chunk_count": 1,
+   "total_row_count": 1,
+   "truncated": false
+  },
+  "result": {
+   "chunk_index": 0,
+   "data_array": [
+    [
+     "9678"
+    ]
+   ],
+   "row_count": 1,
+   "row_offset": 0
+  },
+  "statement_id": "01f1cc10-7736-1d42-9759-740980b4d0e7",
+  "status": {
+   "state": "SUCCEEDED"
+  }
+ }
+}

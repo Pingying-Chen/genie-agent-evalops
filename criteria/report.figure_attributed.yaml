@@ -1,0 +1,28 @@
+id: report.figure_attributed
+title: Every number is said of the right thing
+version: 1
+family: faithfulness
+layer: outcome
+gate: hard
+applies_to: {level: report}
+description: >
+  A figure that matches a result cell must be said of that cell's row and column. A row label
+  ("Europe", "June 2024") governs the figures after it on its line, until the next label or the
+  end of the sentence; a label right after a figure ("$4.2M for Europe") governs that one. A
+  column name counts only next to the figure ("9,209 orders", "revenue was $4.2M"). Naming
+  another row's label or another column's name, and not its own, fails ("Asia had $4.2M" when
+  $4.2M is Europe's). Ranges and bounds ("over $1.69M") are about a group and are not judged; a
+  figure whose context names no label is not judged either.
+params: {}
+measured:
+  false_alarms: 0
+  negatives: 356
+  caught: 89
+  positives: 94
+  method: >
+    The 54 demo traces (main and control agent): 356 figures judged, none flagged; every flag
+    raised while the rule was being written was read by hand and fixed as a false alarm. Then
+    two correctly attributed figures of different rows were swapped in a report, up to three
+    swaps per report, 94 in all (recall). The rule was tuned on these same traces: there was no
+    held-out set, so expect a few false alarms on new reports.
+  measured_on: "2026-10-28"

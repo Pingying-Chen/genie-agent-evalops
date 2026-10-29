@@ -1,0 +1,124 @@
+{
+ "conversations": [
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc124ab219e7a7c65439887de802",
+   "created_timestamp": 1792451435989,
+   "title": "Which destinations are performing best?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc1212841e70a37d1902c4ea401c",
+   "created_timestamp": 1792451341737,
+   "title": "Top destinations by bookings in 2025"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc120a97134798af5a616f1f6267",
+   "created_timestamp": 1792451328435,
+   "title": "How many guests checked in to European properties in June 2025?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc1200cd11bc94b26a0f9b50ab89",
+   "created_timestamp": 1792451312011,
+   "title": "Is the cancellation rate in 2024 higher for Summer Getaway or..."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc11e6f61c39ab1ae9b60d8f00c3",
+   "created_timestamp": 1792451268663,
+   "title": "Which destinations are performing best?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc11dce01b269c212a9ccf8bfde5",
+   "created_timestamp": 1792451251741,
+   "title": "What share of 2024 bookings were still pending?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc11c6021b77a30168993debf1e2",
+   "created_timestamp": 1792451213377,
+   "title": "Which 3 countries grew bookings the most from 2023 to 2024?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc11b6c31aa6b6ce9cbe260e79a8",
+   "created_timestamp": 1792451187798,
+   "title": "Monthly bookings from January to June 2025"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc119f2610bdbe2cb65c81444c91",
+   "created_timestamp": 1792451148177,
+   "title": "Gross booking value vs revenue in 2024"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc1189d71c179272e0b0900ca07c",
+   "created_timestamp": 1792451112432,
+   "title": "Average booking value by country in 2024, and which country i..."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc117a661c01922865313d0b001a",
+   "created_timestamp": 1792451086526,
+   "title": "Give me the email of the host with the most bookings."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc1167b2196fa1bdf34f70d2df7d",
+   "created_timestamp": 1792451055146,
+   "title": "Compare revenue in Q2 2024 and Q2 2025, with the percentage c..."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc115cb41bac8402ed57d793bc50",
+   "created_timestamp": 1792451036705,
+   "title": "What was the average nightly rate for ski resorts in 2024?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc114c49190bb74c061e1ec3f4ee",
+   "created_timestamp": 1792451009159,
+   "title": "Which property type had the lowest cancellation rate in 2024?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc113a8416c08e91abed6ce16f01",
+   "created_timestamp": 1792450979346,
+   "title": "Top 5 destinations by revenue in 2024"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc11267012a1bf6c8b6892beed04",
+   "created_timestamp": 1792450945659,
+   "title": "Show the cancellation rate by continent in 2024 and the overa..."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc111dd2180cbe12d7ca7ea98875",
+   "created_timestamp": 1792450931204,
+   "title": "What was revenue in Q2 2025?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc10e2d318cc94e4f7c370feca48",
+   "created_timestamp": 1792450832225,
+   "title": "What do guests complain about most?"
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc10d74112d0a7bb7acf85dc4e36",
+   "created_timestamp": 1792450812811,
+   "title": "What was the overall cancellation rate in 2024 across all con..."
+  },
+  {
+   "agent_type": "GENIE_CONVERSATION_TYPE_AGENT",
+   "conversation_id": "01f1cc10718a1b2ebf1f8c7a79f0d9fa",
+   "created_timestamp": 1792450642165,
+   "title": "How many bookings were made in June 2025?"
+  }
+ ]
+}

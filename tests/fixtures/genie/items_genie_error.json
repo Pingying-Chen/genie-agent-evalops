@@ -1,0 +1,42 @@
+{
+ "data": [
+  {
+   "completed_at": 1792467059.831,
+   "content": [
+    {
+     "text": "Which continent had the most bookings in 2024?",
+     "type": "input_text"
+    }
+   ],
+   "created_at": 1792467059.831,
+   "id": "01f1cc36ab3613bf8ef57627cb50c934_input",
+   "metadata": {
+    "message_id": "01f1cc36ab3613bf8ef57627cb50c934"
+   },
+   "role": "user",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "content": [
+    {
+     "annotations": [],
+     "text": "An internal error occurred",
+     "type": "output_text"
+    }
+   ],
+   "id": "01f1cc36ab3613bf8ef57627cb50c934_error",
+   "metadata": {
+    "message_id": "01f1cc36ab3613bf8ef57627cb50c934"
+   },
+   "role": "system",
+   "status": "failed",
+   "type": "message"
+  }
+ ],
+ "first_id": "01f1cc36ab3613bf8ef57627cb50c934_input",
+ "has_more": false,
+ "last_id": "01f1cc36ab3613bf8ef57627cb50c934_error",
+ "object": "list",
+ "status": "failed"
+}

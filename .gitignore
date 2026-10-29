@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+dist/
+.venv/
+.env
+.env.*
+!.env.example
+!.env.deploy.example
+.databricks/
+node_modules/
+frontend/dist/
+.DS_Store
+demo/out/
+
+# Personal learning notes (not published)
+notes/
+
+# Judge datasets exported from real labels (scripts/export_judge_labels.py)
+judge_data/

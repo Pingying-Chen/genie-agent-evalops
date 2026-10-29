@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Databricks palette: white/oat surfaces, navy text and actions, Lava red only as an accent.
+   Red is NOT the action colour, because "fail" is red too: a reviewer would read every red
+   button as an error. Verdict colours carry an icon and a word as well, never colour alone. */
+@theme {
+  --font-sans: "DM Sans Variable", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-lava: #ff3621;
+  --color-navy: #1b3139;
+  --color-navy-hover: #2b4a55;
+  --color-oat: #f9f7f4;
+  --color-oat-deep: #eeede9;
+
+  --color-ink: #1b3139;
+  --color-muted: #5f7281;
+  --color-line: #e4e1db;
+  --color-link: #2272b4;
+
+  --color-pass: #00875a;
+  --color-pass-soft: #e3f5ec;
+  --color-fail: #b42318;
+  --color-fail-soft: #fdecea;
+  --color-warn: #9a5b07;
+  --color-warn-soft: #fef3e2;
+  --color-neutral-soft: #eef1f3;
+  --color-mark: #ffe58f;
+}
+
+@layer base {
+  html {
+    @apply bg-oat font-sans text-ink antialiased;
+  }
+  a {
+    @apply text-link hover:underline underline-offset-2;
+  }
+  code {
+    @apply font-mono text-[0.85em];
+  }
+}
+
+/* Genie's report, rendered by components/markdown.tsx */
+.report h4 {
+  @apply mt-4 mb-1 text-base font-semibold;
+}
+.report p {
+  @apply my-2;
+}
+.report ul {
+  @apply my-2 list-disc pl-5;
+}
+.report li {
+  @apply my-0.5;
+}
+.report mark {
+  @apply rounded bg-mark px-0.5 text-inherit;
+}

@@ -1,0 +1,19 @@
+id: rubric.ambiguous_metric
+title: Clarifies an ambiguous metric
+version: 2
+family: rubric
+layer: behaviour
+# Shadow: an LLM judge stays advisory (monitor) until human labels calibrate it.
+gate: monitor
+applies_to: {level: report}
+description: >
+  Rule R5 of the demo agent's instructions, graded by an LLM judge: when a question's metric is
+  ambiguous ("best", "performing"), the report asks which measure or states the one it chose.
+params:
+  skill: rubric_judge
+  rule: >-
+    Applies only when the question asks to rank or compare things by an unspecified measure
+    ("best", "performing", "top" with no measure given and none settled by earlier turns).
+    Then the report must ask which measure, or state the one it chose. It does not apply to
+    out-of-scope questions, refusals, or questions whose measure is explicit or inherited.
+  failure: The question is ambiguous and the report neither asks nor names the measure it used.

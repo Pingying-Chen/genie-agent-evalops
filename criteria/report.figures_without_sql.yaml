@@ -1,0 +1,10 @@
+id: report.figures_without_sql
+title: No numbers without a query
+version: 1
+family: faithfulness
+layer: outcome
+gate: hard
+applies_to: {level: report}
+description: >
+  The report states figures but the trace ran no execute_sql step, so every figure is
+  unsupported (a hallucination guardrail).

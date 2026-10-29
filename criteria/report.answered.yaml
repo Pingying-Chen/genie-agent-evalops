@@ -1,0 +1,11 @@
+id: report.answered
+title: Gives an answer
+version: 1
+family: programmatic
+layer: outcome
+gate: hard
+applies_to: {level: report}
+description: >
+  A readable turn must end with an answer. Fails when Genie ended the turn with its own error
+  (a system message such as "An internal error occurred") or with no report at all; the
+  error text is the evidence. Common cause: the asker lacks access to the data behind the space.

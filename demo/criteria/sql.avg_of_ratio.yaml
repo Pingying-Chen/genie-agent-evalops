@@ -1,0 +1,13 @@
+id: sql.avg_of_ratio
+title: Does not average ratios
+version: 1
+family: programmatic
+layer: process
+gate: hard
+applies_to: {level: step, tool: execute_sql}
+description: >
+  An AVG() over a ratio measure (or over a column aliased from one) averages per-group rates
+  instead of computing the rate over the whole group.
+params:
+  # Ratio measures of the space's metric view. Set per space; this list is the demo's.
+  ratio_measures: [Cancellation Rate, Average Booking Value, Average Nightly Rate]

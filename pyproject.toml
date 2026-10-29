@@ -1,0 +1,65 @@
+[project]
+name = "genie-agent-evalops"
+version = "1.0.0"
+description = "EvalOps for Databricks Genie Agents: capture real Q&A, check every step, show where it fails."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+# Exact pins only (no ranges); transitive versions come from uv.lock.
+dependencies = [
+    "fastapi==0.135.2",
+    "uvicorn[standard]==0.42.0",
+    "httpx==0.28.1",
+    "asyncpg==0.31.0",
+    "pydantic==2.12.5",
+    "pydantic-settings==2.7.1",
+    "databricks-sdk==0.117.0",
+    "pyyaml==6.0.3",
+    "sqlglot==30.0.3",
+]
+
+[project.optional-dependencies]
+# The review job only: MLflow labeling sessions (Databricks Review App).
+review = [
+    "mlflow[databricks]==3.11.1",
+    "databricks-agents==1.12.0",
+]
+dev = [
+    "pytest==9.0.2",
+    "pytest-asyncio==1.3.0",
+    "respx==0.22.0",
+    "ruff==0.8.4",
+]
+
+[project.scripts]
+evalops-collect = "evalops.jobs.collect:main"
+evalops-check = "evalops.jobs.check:main"
+evalops-review = "evalops.jobs.review:main"
+evalops-evaluate = "evalops.jobs.evaluate:main"
+evalops-ask = "evalops.jobs.ask:main"
+
+[build-system]
+requires = ["hatchling==1.29.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/evalops"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"criteria" = "evalops/criteria_default"
+"skills" = "evalops/skills_default"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+# Third-party notice from starlette.testclient; not actionable here.
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]  # line length is the formatter's job; long docstrings stay readable

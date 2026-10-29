@@ -1,0 +1,32 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra dev
+      - run: uv run ruff check .
+      # Exit code 5 = no tests collected (until the first hand-written tests land).
+      - run: uv run pytest || [ $? -eq 5 ]
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      # The API contract: regenerate the spec from the backend and the types from the spec, and
+      # fail if either differs from what is committed.
+      - run: uv sync --frozen && uv run python scripts/export_openapi.py
+        working-directory: .
+      - run: npm run gen:types
+      - run: git diff --exit-code -- openapi.json src/api-types.ts
+      - run: npm run build

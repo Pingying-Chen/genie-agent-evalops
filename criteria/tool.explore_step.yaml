@@ -1,0 +1,11 @@
+id: tool.explore_step
+title: Schema exploration steps
+version: 1
+family: programmatic
+layer: process
+gate: monitor
+applies_to: {level: step, tool: execute_sql}
+description: >
+  The step is a schema probe (SELECT *, a small LIMIT without aggregation, a "sample / check"
+  title) rather than a query that answers. A `fail` here means "this is an exploratory step";
+  the rate is monitored, never gated.

@@ -1,0 +1,473 @@
+# One app + five jobs: collect, check, review, and the regression run's evaluate + ask.
+#   scripts/deploy.sh -t free -p <profile> --var warehouse_id=<id> --var lakebase_endpoint=<...>
+# (builds the frontend, then runs `databricks bundle deploy`).
+bundle:
+  name: genie-agent-evalops
+
+# The jobs run as the collector SP (and `ask` as the tester), which must read the deployed wheel under this bundle's
+# workspace folder (in dev mode that is the deployer's home). Top-level permissions apply to
+# the bundle's resources and its workspace folder.
+permissions:
+  # CAN_RUN (CAN_MANAGE_RUN on jobs): `evaluate` runs as the collector and starts `ask`.
+  - level: CAN_RUN
+    service_principal_name: ${var.collector_sp}
+  # The tester runs the `ask` job from the same wheel. This is a workspace permission, not a
+  # data grant: its data access stays exactly a consumer's (the preflight checks that).
+  - level: CAN_VIEW
+    service_principal_name: ${var.tester_sp}
+
+sync:
+  # frontend/dist is gitignored (a build output) but the app serves it, so ship it explicitly.
+  include:
+    - frontend/dist/**
+  exclude:
+    - frontend/node_modules/**
+    - notes/**
+    - tests/**
+    - demo/out/**
+
+variables:
+  platform_commit:
+    description: Git commit of the code being deployed, with -dirty when the tree had uncommitted changes (scripts/env.sh sets it).
+    default: unknown
+  drift_check_pause:
+    description: UNPAUSED runs the weekly drift check (test split of every space, unchanged agent); PAUSED stops it.
+    default: UNPAUSED
+  warehouse_id:
+    description: SQL warehouse for the app and jobs.
+  catalog:
+    default: workspace
+  schema:
+    default: genie_evalops
+  lakebase_endpoint:
+    description: Lakebase Autoscaling endpoint name (empty = app runs on the in-memory fallback; collect fails fast).
+    default: ""
+  lakebase_user:
+    description: Postgres role the jobs connect as (empty = the job identity's client id or user name).
+    default: ""
+  app_viewers:
+    description: >
+      Who may open the app, as bundle permission entries ([{level: CAN_USE, user_name: ...}]).
+      Generated from APP_VIEWERS in .env.deploy by scripts/env.sh.
+    type: complex
+    default: []
+  collector_sp:
+    description: >
+      Application id of the service principal the jobs run as (the "collector"). Grant it
+      CAN_MANAGE on every Genie Agent to monitor; that grant IS the registration.
+    default: ""
+  llm_concurrency:
+    description: Concurrent LLM judge calls in the check task (lower on Free Edition's QPS limits).
+    default: "2"
+  review_timezone:
+    description: Time zone reviewers read "asked at" in (IANA name, e.g. America/Phoenix).
+    default: UTC
+  extra_criteria_dir:
+    description: >-
+      Folder of this deployment's own criteria, relative to the bundle root, layered on the
+      generic set; "none" = only the generic set.
+    default: none
+  review_budget:
+    description: Most traces queued for human review per space per run (small for a demo).
+    default: "30"
+  judge_model:
+    description: Serving endpoint the LLM skills call (judges in the jobs, the change proposer in the app).
+    default: databricks-qwen3-next-80b-a3b-instruct
+  tester_sp:
+    description: >
+      Application id of the tester service principal: holds a consumer's data grants and
+      nothing else; runs the `ask` job of regression runs.
+    default: ""
+  eval_k:
+    description: Times each eval case is asked per configuration in a regression run.
+    default: "3"
+  lakebase_branch:
+    description: Lakebase branch the app may connect to, e.g. projects/<p>/branches/production.
+    default: ""
+
+artifacts:
+  wheel:
+    type: whl
+    build: uv build --wheel
+    path: .
+
+resources:
+  apps:
+    evalops:
+      name: genie-agent-evalops
+      description: EvalOps for Databricks Genie Agents.
+      source_code_path: .
+      # The viewer's token is used only to ask Genie which spaces they manage, and SCIM /Me
+      # which reviewer groups they are in. iam.current-user:read (for /Me) is a default scope
+      # every app gets; listing it explicitly is rejected as "not a valid scope".
+      user_api_scopes: [dashboards.genie]
+      # Two gates. (1) Who may open the app: only principals the owner shares it with, listed in
+      # APP_VIEWERS (.env.deploy). The bundle manages app permissions, so shares made by hand
+      # in the UI are reset on the next deploy: list them here instead. (2) What each viewer
+      # sees: decided per request from their own Genie permissions (CAN_MANAGE).
+      permissions: ${var.app_viewers}
+      config:
+        command: ["uvicorn", "evalops.main:app", "--host", "0.0.0.0", "--port", "8000"]
+        env:
+          - name: EVALOPS_WAREHOUSE_ID
+            value: ${var.warehouse_id}
+          - name: EVALOPS_CATALOG
+            value: ${var.catalog}
+          - name: EVALOPS_SCHEMA
+            value: ${var.schema}
+          # Relative to the app's source folder (the bundle root).
+          - name: EVALOPS_EXTRA_CRITERIA_DIR
+            value: ${var.extra_criteria_dir}
+          - name: EVALOPS_LAKEBASE_ENDPOINT
+            value: ${var.lakebase_endpoint}
+          # EVALOPS_LAKEBASE_USER is left unset: the app connects as its service principal's
+          # client id. (Apps reject an env entry whose value is an empty string.)
+          - name: EVALOPS_COLLECT_JOB_ID
+            value: ${resources.jobs.collect.id}
+          - name: EVALOPS_EVALUATE_JOB_ID
+            value: ${resources.jobs.evaluate.id}
+          - name: EVALOPS_JUDGE_MODEL
+            value: ${var.judge_model}
+          - name: EVALOPS_PLATFORM_COMMIT
+            value: ${var.platform_commit}
+      # Each resource grants the app's service principal exactly what it needs (an app has at
+      # most 20). It reads current verdicts only; the check history stays with the jobs.
+      resources:
+        - name: sql-warehouse
+          sql_warehouse:
+            id: ${var.warehouse_id}
+            permission: CAN_USE
+        - name: collect-job
+          job:
+            id: ${resources.jobs.collect.id}
+            permission: CAN_MANAGE_RUN
+        - name: evaluate-job
+          job:
+            id: ${resources.jobs.evaluate.id}
+            permission: CAN_MANAGE_RUN
+        # Drafting a change from a failure category calls the model from the app.
+        - name: llm
+          serving_endpoint:
+            name: ${var.judge_model}
+            permission: CAN_QUERY
+        - name: lakebase
+          postgres:
+            branch: ${var.lakebase_branch}
+            # Resource path of the database (its id uses hyphens; the Postgres name is databricks_postgres).
+            database: ${var.lakebase_branch}/databases/databricks-postgres
+            permission: CAN_CONNECT_AND_CREATE
+        - name: traces-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.traces
+            permission: SELECT
+        - name: steps-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.steps
+            permission: SELECT
+        - name: current-results-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.current_results
+            permission: SELECT
+        - name: review-items-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.review_items
+            permission: SELECT
+        - name: human-labels-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.human_labels
+            permission: SELECT
+        - name: judge-agreement-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.judge_agreement
+            permission: SELECT
+        - name: trace-reviews-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.trace_reviews
+            permission: SELECT
+        - name: observation-suggestions-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.observation_suggestions
+            permission: SELECT
+        - name: space-versions-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.space_versions
+            permission: SELECT
+        - name: eval-runs-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.eval_runs
+            permission: SELECT
+        - name: eval-results-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.eval_results
+            permission: SELECT
+        - name: question-intents-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.question_intents
+            permission: SELECT
+        - name: run-manifests-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.run_manifests
+            permission: SELECT
+        - name: artifacts-table
+          uc_securable:
+            securable_type: TABLE
+            securable_full_name: ${var.catalog}.${var.schema}.artifacts
+            permission: SELECT
+
+  jobs:
+    collect:
+      name: evalops-collect
+      run_as:
+        service_principal_name: ${var.collector_sp}
+      # The app starts this job ("Collect now"). Declared here, or every deploy resets the job's
+      # permissions to the bundle's and drops the grant the app resource made.
+      permissions:
+        - level: CAN_MANAGE_RUN
+          service_principal_name: ${resources.apps.evalops.service_principal_client_id}
+      # `space` empty = every monitored space. The app sets it via job_parameters
+      # (python_params would REPLACE the --set arguments below).
+      parameters:
+        - name: space
+          default: ""
+      tasks:
+        - task_key: collect
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-collect
+            parameters:
+              - --space={{job.parameters.space}}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+        # Checks run right after a successful collection.
+        - task_key: check
+          depends_on:
+            - task_key: collect
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-check
+            parameters:
+              - --set=llm_concurrency=${var.llm_concurrency}
+              - --set=judge_model=${var.judge_model}
+              - --space={{job.parameters.space}}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=extra_criteria_dir=${var.extra_criteria_dir}
+              - --set=root_dir=${workspace.file_path}
+              - --set=platform_commit=${var.platform_commit}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies: [./dist/*.whl]
+
+    check:
+      name: evalops-check
+      run_as:
+        service_principal_name: ${var.collector_sp}
+      tasks:
+        - task_key: check
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-check
+            parameters:
+              - --set=llm_concurrency=${var.llm_concurrency}
+              - --set=judge_model=${var.judge_model}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=extra_criteria_dir=${var.extra_criteria_dir}
+              - --set=root_dir=${workspace.file_path}
+              - --set=platform_commit=${var.platform_commit}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies: [./dist/*.whl]
+
+    # Human review (mechanism A): pull labels + agreement, then queue new traces. Run by hand
+    # or on a schedule; reviewers must have opened the app once (that registers them).
+    review:
+      name: evalops-review
+      run_as:
+        service_principal_name: ${var.collector_sp}
+      parameters:
+        - name: space
+          default: ""
+      tasks:
+        - task_key: review
+          environment_key: review
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-review
+            parameters:
+              - --space={{job.parameters.space}}
+              - --set=review_timezone=${var.review_timezone}
+              - --set=review_budget=${var.review_budget}
+              - --set=judge_model=${var.judge_model}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=extra_criteria_dir=${var.extra_criteria_dir}
+              - --set=root_dir=${workspace.file_path}
+              - --set=platform_commit=${var.platform_commit}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+      environments:
+        - environment_key: review
+          spec:
+            client: "2"
+            # The `review` extra, spelled out: environment specs take requirement strings.
+            dependencies:
+              - ./dist/*.whl
+              - mlflow[databricks]==3.11.1
+              - databricks-agents==1.12.0
+
+    # Regression run, part 1 as the collector: export the configuration and the
+    # eval cases, start `ask`, wait, grade, store.
+    evaluate:
+      name: evalops-evaluate
+      run_as:
+        service_principal_name: ${var.collector_sp}
+      # The app starts this job (dev and gate runs); see `collect`.
+      permissions:
+        - level: CAN_MANAGE_RUN
+          service_principal_name: ${resources.apps.evalops.service_principal_client_id}
+      parameters:
+        - name: space
+          default: ""
+        - name: label
+          default: ""
+        - name: change
+          default: ""
+        - name: split
+          default: dev
+        - name: scope
+          default: ""
+      tasks:
+        - task_key: evaluate
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-evaluate
+            parameters:
+              - --space={{job.parameters.space}}
+              - --label={{job.parameters.label}}
+              - --change={{job.parameters.change}}
+              - --split={{job.parameters.split}}
+              - --scope={{job.parameters.scope}}
+              - --set=tester_job_id=${resources.jobs.ask.id}
+              - --set=tester_principal=${var.tester_sp}
+              - --set=eval_k=${var.eval_k}
+              - --set=llm_concurrency=${var.llm_concurrency}
+              - --set=judge_model=${var.judge_model}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=extra_criteria_dir=${var.extra_criteria_dir}
+              - --set=root_dir=${workspace.file_path}
+              - --set=platform_commit=${var.platform_commit}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies: [./dist/*.whl]
+
+    # Weekly drift check: the test split of every space with eval cases, on its
+    # unchanged configuration. Two checks with identical manifests whose cases flip mean Genie
+    # itself changed (its platform or model version is not exposed).
+    drift_check:
+      name: evalops-drift-check
+      schedule:
+        quartz_cron_expression: "0 0 6 ? * SUN"
+        timezone_id: UTC
+        pause_status: ${var.drift_check_pause}
+      run_as:
+        service_principal_name: ${var.collector_sp}
+      tasks:
+        - task_key: drift_check
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-evaluate
+            parameters:
+              - --space=all
+              - --split=test
+              - --label=weekly drift check
+              - --set=tester_job_id=${resources.jobs.ask.id}
+              - --set=tester_principal=${var.tester_sp}
+              - --set=eval_k=${var.eval_k}
+              - --set=llm_concurrency=${var.llm_concurrency}
+              - --set=judge_model=${var.judge_model}
+              - --set=warehouse_id=${var.warehouse_id}
+              - --set=catalog=${var.catalog}
+              - --set=schema=${var.schema}
+              - --set=extra_criteria_dir=${var.extra_criteria_dir}
+              - --set=root_dir=${workspace.file_path}
+              - --set=platform_commit=${var.platform_commit}
+              - --set=lakebase_endpoint=${var.lakebase_endpoint}
+              - --set=lakebase_user=${var.lakebase_user}
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies: [./dist/*.whl]
+
+    # Regression run, part 2 as the TESTER: a consumer's view of the data, nothing more. Started
+    # only by `evaluate`, with the run folder it shares.
+    ask:
+      name: evalops-ask
+      run_as:
+        service_principal_name: ${var.tester_sp}
+      parameters:
+        - name: run_dir
+          default: ""
+      tasks:
+        - task_key: ask
+          environment_key: default
+          python_wheel_task:
+            package_name: genie_agent_evalops
+            entry_point: evalops-ask
+            parameters:
+              - --run-dir={{job.parameters.run_dir}}
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies: [./dist/*.whl]
+
+targets:
+  free:
+    # Databricks Free Edition: serverless only, one running app.
+    default: true
+    mode: development
+  custom:
+    # Workspaces without serverless for the job identity: override each job with
+    # job_clusters + job_cluster_key (policy id, single-user name) in a target-level
+    # resources block. Added in the deploy milestone.
+    mode: production

@@ -1,0 +1,387 @@
+{
+ "data": [
+  {
+   "completed_at": 1792451342.402,
+   "content": [
+    {
+     "text": "Top destinations by bookings in 2025",
+     "type": "input_text"
+    }
+   ],
+   "created_at": 1792451342.402,
+   "id": "01f1cc1212e51cd6b71ad42ae430dc9b_input",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "role": "user",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "content": [
+    {
+     "text": "I'll find the top destinations by number of bookings in 2025.",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_7b480ec5f4f84bb6",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "arguments": "{\"title\":\"Top Destinations by Bookings in 2025\",\"sql\":\"\\nSELECT \\n  `Destination`,\\n  MEASURE(`Bookings`) AS `bookings`\\nFROM `workspace`.`genie_demo`.`booking_metrics`\\nWHERE `Booking Year` = 2025\\nGROUP BY ALL\\nORDER BY `bookings` DESC\\nLIMIT 20\\n\"}",
+   "call_id": "toolu_bdrk_01mqwscpneauxzw3jsqae475",
+   "created_at": 1792451349.588,
+   "id": "toolu_bdrk_01mqwscpneauxzw3jsqae475",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "name": "execute_sql",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "toolu_bdrk_01mqwscpneauxzw3jsqae475",
+   "id": "pub_toolu_bdrk_01MQwsCpNeaUxzW3JsqAE475_output",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b",
+    "statement_id": "01f1cc12-172e-1de1-ba9b-adf7db844e61"
+   },
+   "output": "**Top Destinations by Bookings in 2025**\n\n| Destination | bookings |\n| --- | --- |\n| Phuket | 5132 |\n| Gold Coast | 4580 |\n| Mallorca | 4538 |\n| Paris | 3532 |\n| Abu Dhabi | 2825 |\n| Tokyo | 2290 |\n| Singapore | 2030 |\n| Osaka | 1971 |\n| Dubai | 1946 |\n| New York | 1863 |\n| Barcelona | 1758 |\n| San Francisco | 1603 |\n| Berlin | 1438 |\n| Krabi | 1360 |\n| Madrid | 1299 |\n| Ibiza | 1211 |\n| Sardinia | 1210 |\n| Rome | 1119 |\n| Munich | 991 |\n| London | 969 |",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "content": [
+    {
+     "text": "Now I'll create a visualization to show these top destinations.",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_11e41ed2f33e466a",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "content": [
+    {
+     "text": "Let me create the visualization with the correct sql_id:",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_a33f3ef845f24d23",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "arguments": "{\"title\":\"Top 20 Destinations by Bookings in 2025\",\"query_attachment_id\":\"toolu_bdrk_01mqwscpneauxzw3jsqae475\"}",
+   "call_id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output",
+   "created_at": 1792451364.932,
+   "id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "name": "generate_visualization",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output",
+   "completed_at": 1792451364.997,
+   "created_at": 1792451364.997,
+   "id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output_output",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b",
+    "viz": {
+     "attachment_id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output",
+     "query_attachment_id": "toolu_bdrk_01mqwscpneauxzw3jsqae475"
+    }
+   },
+   "output": "Top 20 Destinations by Bookings in 2025",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "completed_at": 1792451372.62,
+   "content": [
+    {
+     "annotations": [],
+     "text": "## Top Destinations by Bookings in 2025\n\n**Phuket** leads with **5,132 bookings**, followed by **Gold Coast** (4,580) and **Mallorca** (4,538) in 2025. \\[[1](https://example.cloud.databricks.com/genie/rooms/01f1cc1054581cf2a16811f9028898a4/chats/01f1cc1212841e70a37d1902c4ea401c?o=0&gra_focus=toolu_bdrk_01mqwscpneauxzw3jsqae475)\\]",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "metadata": {
+      "viz": {
+       "attachment_id": "pub_toolu_bdrk_017fkT4ACtQXtXZR4nyssVi2_output"
+      }
+     },
+     "text": "",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "text": "### Key Findings\n\nThe top three destinations account for over 14,000 bookings combined. Beach and resort destinations dominate the list, with **Phuket** significantly ahead of other locations. Major cities like **Paris** (3,532), **Tokyo** (2,290), and **New York** (1,863) also feature prominently in the top 10.\n\nAsian destinations show strong performance with Phuket, Gold Coast, Tokyo, Singapore, and Osaka all ranking in the top 10. European beach destinations including Mallorca, Ibiza, and Sardinia also attract significant booking volumes.\n\n*Period: 2025 bookings (data through July 30, 2025)*",
+     "type": "output_text"
+    }
+   ],
+   "created_at": 1792451372.62,
+   "id": "toolu_bdrk_019nrLL2RP7UvkW5tWKqXAAH",
+   "metadata": {
+    "message_id": "01f1cc1212e51cd6b71ad42ae430dc9b"
+   },
+   "role": "assistant",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "completed_at": 1792451373.439,
+   "content": [
+    {
+     "text": "and their cancellation rates?",
+     "type": "input_text"
+    }
+   ],
+   "created_at": 1792451373.439,
+   "id": "01f1cc1225661f0b88431a1d54d0db8b_input",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "role": "user",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "content": [
+    {
+     "text": "I'll analyze the cancellation rates for these top destinations in 2025.",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_e626162132e34f1f",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "arguments": "{\"title\":\"Top Destinations with Cancellation Rates in 2025\",\"sql\":\"\\nSELECT \\n  `Destination`,\\n  MEASURE(`Bookings`) AS `bookings`,\\n  MEASURE(`Cancellation Rate`) AS `cancellation_rate`\\nFROM `workspace`.`genie_demo`.`booking_metrics`\\nWHERE `Booking Year` = 2025\\nGROUP BY ALL\\nORDER BY `bookings` DESC\\nLIMIT 20\\n\"}",
+   "call_id": "toolu_bdrk_019mnrm8oa61hu1enwwbxaf7",
+   "created_at": 1792451383.279,
+   "id": "toolu_bdrk_019mnrm8oa61hu1enwwbxaf7",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "name": "execute_sql",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "toolu_bdrk_019mnrm8oa61hu1enwwbxaf7",
+   "id": "pub_toolu_bdrk_019mNRm8oA61Hu1enWWBXAF7_output",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b",
+    "statement_id": "01f1cc12-2b3e-1fa2-905f-79ea78a8670b"
+   },
+   "output": "**Top Destinations with Cancellation Rates in 2025**\n\n| Destination | bookings | cancellation_rate |\n| --- | --- | --- |\n| Phuket | 5132 | 0.21492595479345283 |\n| Gold Coast | 4580 | 0.2131004366812227 |\n| Mallorca | 4538 | 0.2113265755839577 |\n| Paris | 3532 | 0.2239524348810872 |\n| Abu Dhabi | 2825 | 0.22690265486725664 |\n| Tokyo | 2290 | 0.2126637554585153 |\n| Singapore | 2030 | 0.21083743842364533 |\n| Osaka | 1971 | 0.2313546423135464 |\n| Dubai | 1946 | 0.20709146968139774 |\n| New York | 1863 | 0.22168545356951155 |\n| Barcelona | 1758 | 0.22753128555176336 |\n| San Francisco | 1603 | 0.21584529008109793 |\n| Berlin | 1438 | 0.21627260083449235 |\n| Krabi | 1360 | 0.20955882352941177 |\n| Madrid | 1299 | 0.22401847575057737 |\n| Ibiza | 1211 | 0.2254335260115607 |\n| Sardinia | 1210 | 0.20578512396694215 |\n| Rome | 1119 | 0.22966934763181412 |\n| Munich | 991 | 0.24117053481331988 |\n| London | 969 | 0.25077399380804954 |",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "content": [
+    {
+     "text": "Now I'll create visualizations to show the cancellation rates:",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_f840413e0a2b4b54",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "arguments": "{\"title\":\"Cancellation Rates by Top Destinations in 2025\",\"query_attachment_id\":\"toolu_bdrk_019mnrm8oa61hu1enwwbxaf7\"}",
+   "call_id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output",
+   "created_at": 1792451392.895,
+   "id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "name": "generate_visualization",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output",
+   "completed_at": 1792451393.02,
+   "created_at": 1792451393.02,
+   "id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output_output",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b",
+    "viz": {
+     "attachment_id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output",
+     "query_attachment_id": "toolu_bdrk_019mnrm8oa61hu1enwwbxaf7"
+    }
+   },
+   "output": "Cancellation Rates by Top Destinations in 2025",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "completed_at": 1792451402.008,
+   "content": [
+    {
+     "annotations": [],
+     "text": "## Cancellation Rates for Top Destinations in 2025\n\nCancellation rates among the top 20 destinations range from **20.6% to 25.1%**, with most destinations clustering around **21-23%**. \\[[1](https://example.cloud.databricks.com/genie/rooms/01f1cc1054581cf2a16811f9028898a4/chats/01f1cc1212841e70a37d1902c4ea401c?o=0&gra_focus=toolu_bdrk_019mnrm8oa61hu1enwwbxaf7)\\]",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "metadata": {
+      "viz": {
+       "attachment_id": "pub_toolu_bdrk_01MUFLAqqYPo7PvqX3j9xUGM_output"
+      }
+     },
+     "text": "",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "text": "### Key Findings\n\n**Lowest cancellation rates:**\n- **Sardinia** (20.6%)\n- **Dubai** (20.7%)\n- **Krabi** (21.0%)\n- **Singapore** (21.1%)\n\n**Highest cancellation rates:**\n- **London** (25.1%)\n- **Munich** (24.1%)\n- **Osaka** (23.1%)\n- **Rome** (23.0%)\n\nThe top three destinations by booking volume (Phuket, Gold Coast, Mallorca) all maintain relatively moderate cancellation rates between **21.1% and 21.5%**, suggesting their popularity is not significantly impacted by cancellations. European cities tend to have slightly higher cancellation rates compared to Asian beach destinations.\n\n*Period: 2025 bookings (data through July 30, 2025)*",
+     "type": "output_text"
+    }
+   ],
+   "created_at": 1792451402.008,
+   "id": "toolu_bdrk_012YMPQjjhfEtTiSEyUr7sN8",
+   "metadata": {
+    "message_id": "01f1cc1225661f0b88431a1d54d0db8b"
+   },
+   "role": "assistant",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "completed_at": 1792451402.953,
+   "content": [
+    {
+     "text": "only the ones above 20%",
+     "type": "input_text"
+    }
+   ],
+   "created_at": 1792451402.953,
+   "id": "01f1cc1236fd1f1d9d2c435f4654c393_input",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393"
+   },
+   "role": "user",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "arguments": "{\"title\":\"Top Destinations with Cancellation Rates Above 20% in 2025\",\"sql\":\"\\nSELECT \\n  `Destination`,\\n  MEASURE(`Bookings`) AS `bookings`,\\n  MEASURE(`Cancellation Rate`) AS `cancellation_rate`\\nFROM `workspace`.`genie_demo`.`booking_metrics`\\nWHERE `Booking Year` = 2025\\nGROUP BY ALL\\nHAVING `cancellation_rate` > 0.20\\nORDER BY `bookings` DESC\\n\"}",
+   "call_id": "toolu_bdrk_01dnz1fop9u9qjcsujue2dfa",
+   "created_at": 1792451418.459,
+   "id": "toolu_bdrk_01dnz1fop9u9qjcsujue2dfa",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393"
+   },
+   "name": "execute_sql",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "toolu_bdrk_01dnz1fop9u9qjcsujue2dfa",
+   "id": "pub_toolu_bdrk_01DNz1foP9u9QJcsUJue2DfA_output",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393",
+    "statement_id": "01f1cc12-4045-19fb-bd09-690a7be74215"
+   },
+   "output": "**Top Destinations with Cancellation Rates Above 20% in 2025**\n\n| Destination | bookings | cancellation_rate |\n| --- | --- | --- |\n| Phuket | 5132 | 0.21492595479345283 |\n| Gold Coast | 4580 | 0.2131004366812227 |\n| Mallorca | 4538 | 0.2113265755839577 |\n| Paris | 3532 | 0.2239524348810872 |\n| Abu Dhabi | 2825 | 0.22690265486725664 |\n| Tokyo | 2290 | 0.2126637554585153 |\n| Singapore | 2030 | 0.21083743842364533 |\n| Osaka | 1971 | 0.2313546423135464 |\n| Dubai | 1946 | 0.20709146968139774 |\n| New York | 1863 | 0.22168545356951155 |\n| Barcelona | 1758 | 0.22753128555176336 |\n| San Francisco | 1603 | 0.21584529008109793 |\n| Berlin | 1438 | 0.21627260083449235 |\n| Krabi | 1360 | 0.20955882352941177 |\n| Madrid | 1299 | 0.22401847575057737 |\n| Ibiza | 1211 | 0.2254335260115607 |\n| Sardinia | 1210 | 0.20578512396694215 |\n| Rome | 1119 | 0.22966934763181412 |\n| Munich | 991 | 0.24117053481331988 |\n| London | 969 | 0.25077399380804954 |\n| Xi'an | 704 | 0.22585227272727273 |\n| Byron Bay | 634 | 0.25236593059936907 |\n| Cairo | 621 | 0.21578099838969403 |\n| Mykonos | 545 | 0.23853211009174313 |\n| Santorini | 471 | 0.2505307855626327 |\n| Agra | 244 | 0.20901639344262296 |\n| Amalfi | 219 | 0.2237442922374429 |\n| Luxor | 160 | 0.25 |\n| Jaipur | 142 | 0.2535211267605634 |\n| Banff | 3 | 0.3333333333333333 |\n| St. Moritz | 2 | 0.5 |",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "arguments": "{\"title\":\"Destinations with Cancellation Rates Above 20% in 2025\",\"query_attachment_id\":\"toolu_bdrk_01dnz1fop9u9qjcsujue2dfa\"}",
+   "call_id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output",
+   "created_at": 1792451428.777,
+   "id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393"
+   },
+   "name": "generate_visualization",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output",
+   "completed_at": 1792451428.826,
+   "created_at": 1792451428.826,
+   "id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output_output",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393",
+    "viz": {
+     "attachment_id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output",
+     "query_attachment_id": "toolu_bdrk_01dnz1fop9u9qjcsujue2dfa"
+    }
+   },
+   "output": "Destinations with Cancellation Rates Above 20% in 2025",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "completed_at": 1792451435.361,
+   "content": [
+    {
+     "annotations": [],
+     "text": "## Destinations with Cancellation Rates Above 20% in 2025\n\n**31 destinations** have cancellation rates exceeding 20%, ranging from **20.6% to 50.0%**. \\[[1](https://example.cloud.databricks.com/genie/rooms/01f1cc1054581cf2a16811f9028898a4/chats/01f1cc1212841e70a37d1902c4ea401c?o=0&gra_focus=toolu_bdrk_01dnz1fop9u9qjcsujue2dfa)\\]",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "metadata": {
+      "viz": {
+       "attachment_id": "pub_toolu_bdrk_01PnByGWRjKoF12CkkoUBBjw_output"
+      }
+     },
+     "text": "",
+     "type": "output_text"
+    },
+    {
+     "annotations": [],
+     "text": "### Highest Cancellation Rates\n\nThe destinations with the most concerning cancellation rates include:\n- **St. Moritz** (50.0%) - 2 bookings\n- **Banff** (33.3%) - 3 bookings  \n- **Jaipur** (25.4%) - 142 bookings\n- **Byron Bay** (25.2%) - 634 bookings\n- **London** (25.1%) - 969 bookings\n- **Santorini** (25.1%) - 471 bookings\n- **Luxor** (25.0%) - 160 bookings\n\n### High-Volume Destinations Above 20%\n\nAmong destinations with significant booking volumes, all of the top performers have cancellation rates above 20%:\n- **Phuket**: 21.5% (5,132 bookings)\n- **Gold Coast**: 21.3% (4,580 bookings)\n- **Mallorca**: 21.1% (4,538 bookings)\n- **Paris**: 22.4% (3,532 bookings)\n- **Abu Dhabi**: 22.7% (2,825 bookings)\n\n*Period: 2025 bookings (data through July 30, 2025)*",
+     "type": "output_text"
+    }
+   ],
+   "created_at": 1792451435.361,
+   "id": "toolu_bdrk_01AHcpVUnDuhRWGgFQ7gzcP6",
+   "metadata": {
+    "message_id": "01f1cc1236fd1f1d9d2c435f4654c393"
+   },
+   "role": "assistant",
+   "status": "completed",
+   "type": "message"
+  }
+ ],
+ "first_id": "01f1cc1212e51cd6b71ad42ae430dc9b_input",
+ "has_more": false,
+ "last_id": "toolu_bdrk_01AHcpVUnDuhRWGgFQ7gzcP6",
+ "object": "list",
+ "status": "completed"
+}

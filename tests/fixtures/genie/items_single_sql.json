@@ -1,0 +1,82 @@
+{
+ "data": [
+  {
+   "completed_at": 1792450644.033,
+   "content": [
+    {
+     "text": "How many bookings were made in June 2025?",
+     "type": "input_text"
+    }
+   ],
+   "created_at": 1792450644.033,
+   "id": "01f1cc1072a1115d93053edd9ee87627_input",
+   "metadata": {
+    "message_id": "01f1cc1072a1115d93053edd9ee87627"
+   },
+   "role": "user",
+   "status": "completed",
+   "type": "message"
+  },
+  {
+   "content": [
+    {
+     "text": "I'll query the booking metrics to find the total number of bookings made in June 2025.",
+     "type": "reasoning_text"
+    }
+   ],
+   "id": "msg_395793b88fad41b1",
+   "metadata": {
+    "message_id": "01f1cc1072a1115d93053edd9ee87627"
+   },
+   "status": "completed",
+   "summary": [],
+   "type": "reasoning"
+  },
+  {
+   "arguments": "{\"title\":\"Total Bookings in June 2025\",\"sql\":\"\\nSELECT MEASURE(`Bookings`) AS `total_bookings`\\nFROM `workspace`.`genie_demo`.`booking_metrics`\\nWHERE `Booking Date` >= '2025-06-01' AND `Booking Date` < '2025-07-01'\\nGROUP BY ALL\\n\"}",
+   "call_id": "toolu_bdrk_01561puxopgpamnx4pbi95qn",
+   "created_at": 1792450651.665,
+   "id": "toolu_bdrk_01561puxopgpamnx4pbi95qn",
+   "metadata": {
+    "message_id": "01f1cc1072a1115d93053edd9ee87627"
+   },
+   "name": "execute_sql",
+   "status": "completed",
+   "type": "function_call"
+  },
+  {
+   "call_id": "toolu_bdrk_01561puxopgpamnx4pbi95qn",
+   "id": "pub_toolu_bdrk_01561puxopgPamNX4pbi95qn_output",
+   "metadata": {
+    "message_id": "01f1cc1072a1115d93053edd9ee87627",
+    "statement_id": "01f1cc10-7736-1d42-9759-740980b4d0e7"
+   },
+   "output": "**Total Bookings in June 2025**\n\n| total_bookings |\n| --- |\n| 9678 |",
+   "status": "completed",
+   "type": "function_call_output"
+  },
+  {
+   "completed_at": 1792450657.515,
+   "content": [
+    {
+     "annotations": [],
+     "text": "## 9,678 Bookings in June 2025\n\nThere were **9,678 bookings** made in June 2025. [1]",
+     "type": "output_text"
+    }
+   ],
+   "created_at": 1792450657.515,
+   "id": "toolu_bdrk_016U7MQtexTKpDnbewh9p7Zj",
+   "metadata": {
+    "message_id": "01f1cc1072a1115d93053edd9ee87627"
+   },
+   "role": "assistant",
+   "status": "completed",
+   "type": "message"
+  }
+ ],
+ "first_id": "01f1cc1072a1115d93053edd9ee87627_input",
+ "has_more": false,
+ "last_id": "toolu_bdrk_016U7MQtexTKpDnbewh9p7Zj",
+ "object": "list",
+ "status": "completed"
+}
